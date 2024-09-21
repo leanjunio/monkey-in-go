@@ -64,6 +64,10 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Literal = l.readIdentifier()
 			tok.Type = token.LookupIdent(tok.Literal)
 			return tok
+		} else if isDigit(l.ch) {
+			tok.Literal = l.readNumber()
+			tok.Type = token.INT
+			return tok
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}
@@ -71,6 +75,23 @@ func (l *Lexer) NextToken() token.Token {
 
 	l.readChar()
 	return tok
+}
+
+// Reads the input string until a non-digit character is found.
+func (l *Lexer) readNumber() string {
+	position := l.position
+
+	for isDigit(l.ch) {
+		l.readChar()
+	}
+
+	return l.input[position:l.position]
+}
+
+// Returns a boolean value indicating whether the character is a digit by checking
+// if the character is between '0' and '9'.
+func isDigit(ch byte) bool {
+	return '0' <= ch && ch <= '9'
 }
 
 // Called when a character is encountered to keep reading the string until a non-letter character is found.
