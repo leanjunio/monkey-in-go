@@ -41,12 +41,22 @@ const (
 	// Keywords
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
+	IF       = "IF"
+	RETURN   = "RETURN"
+	TRUE     = "TRUE"
+	FALSE    = "FALSE"
+	ELSE     = "ELSE"
 )
 
 // Keywords are used to identify the type of token.
 var keywords = map[string]TokenType{
-	"fn":  FUNCTION,
-	"let": LET,
+	"fn":     FUNCTION,
+	"let":    LET,
+	"if":     IF,
+	"return": RETURN,
+	"true":   TRUE,
+	"false":  FALSE,
+	"else":   ELSE,
 }
 
 // Checks if the identifier is a keyword. If it is, it returns the token type for that keyword.
